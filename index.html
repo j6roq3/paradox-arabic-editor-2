@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>محرر نصوص بارادوكس</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1><i class="fas fa-language"></i> محرر نصوص بارادوكس</h1>
+                <div class="header-controls">
+                    <button class="btn btn-secondary" onclick="openSettings()">
+                        <i class="fas fa-cog"></i> إعدادات API
+                    </button>
+                    <button class="btn btn-primary" onclick="openFile()">
+                        <i class="fas fa-folder-open"></i> فتح ملف
+                    </button>
+                    <button class="btn btn-success save-btn unsaved" id="saveFileBtn" onclick="saveAllChanges()">
+                        <i class="fas fa-save"></i> حفظ الملف
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Toolbar -->
+        <div class="toolbar">
+            <div class="toolbar-left">
+                <div class="control-group">
+                    <label for="fontSize">حجم الخط:</label>
+                    <select id="fontSize" onchange="changeFontSize()">
+                        <option value="10">10 (صغير جداً)</option>
+                        <option value="11">11 (صغير)</option>
+                        <option value="12">12 (عادي صغير)</option>
+                        <option value="14" selected>14 (افتراضي)</option>
+                        <option value="16">16 (متوسط)</option>
+                        <option value="18">18 (كبير)</option>
+                        <option value="20">20 (كبير جداً)</option>
+                        <option value="22">22 (ضخم)</option>
+                        <option value="24">24 (ضخم جداً)</option>
+                        <option value="28">28 (عملاق)</option>
+                        <option value="32">32 (عملاق جداً)</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label for="textAlign">محاذاة النص:</label>
+                    <select id="textAlign" onchange="changeTextAlignment()">
+                        <option value="right" selected>يمين</option>
+                        <option value="center">وسط</option>
+                        <option value="left">يسار</option>
+                    </select>
+                </div>
+                <div class="control-group translation-controls">
+                    <label for="translationService">خدمة الترجمة:</label>
+                    <select id="translationService">
+                        <option value="mymemory">MyMemory (مجاني - بدون API)</option>
+                        <option value="claude">Claude (Anthropic)</option>
+                        <option value="chatgpt">ChatGPT (OpenAI)</option>
+                        <option value="gemini">Gemini (Google)</option>
+                        <option value="deepl">DeepL</option>
+                        <option value="google">Google Translate</option>
+                    </select>
+                    <button class="btn btn-info translate-btn" onclick="translateCurrentText()" title="ترجمة النص المرجعي">
+                        <i class="fas fa-language"></i> ترجم
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Left Panel - Translation List -->
+            <div class="left-panel">
+                <div class="panel-header">
+                    <h3><i class="fas fa-list"></i> مفاتيح الترجمة</h3>
+                    <div class="stats">
+                        <span id="statsText">إجمالي الترجمات: 0</span>
+                    </div>
+                </div>
+                <!-- Search Box -->
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="بحث في الترجمات..." oninput="filterTranslations()">
+                </div>
+                <div class="translation-list" id="translationList">
+                    <!-- Translation items will be populated here -->
+                </div>
+            </div>
+
+            <!-- Right Panel - Translation Editor -->
+            <div class="right-panel">
+                <div class="panel-header">
+                    <h3><i class="fas fa-edit"></i> محرر الترجمة</h3>
+                    <div class="navigation">
+                        <button class="btn btn-secondary" onclick="previousTranslation()">
+                            <i class="fas fa-chevron-right"></i> السابق
+                        </button>
+                        <button class="btn btn-secondary" onclick="nextTranslation()">
+                            التالي <i class="fas fa-chevron-left"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="editor-content">
+                    <!-- Original Text -->
+                    <div class="field-group">
+                        <label>النص المرجعي (إنجليزي):</label>
+                        <div class="text-display-container">
+                            <div class="text-display original-text" id="originalText" readonly></div>
+                            <button class="copy-icon" onclick="copyToClipboard('originalText')" title="نسخ النص المرجعي">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Translation Text -->
+                    <div class="field-group">
+                        <label>الترجمة (قابل للتعديل):</label>
+                        <div class="text-display-container">
+                            <textarea id="translationText" class="translation-input" 
+                                      placeholder="اكتب الترجمة هنا..."></textarea>
+                            <button class="copy-icon" onclick="copyToClipboard('translationText')" title="نسخ الترجمة">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="action-buttons">
+                        <button class="btn btn-warning" onclick="undoChanges()">
+                            <i class="fas fa-undo"></i> إعادة تعيين
+                        </button>
+                        <button class="btn btn-info" onclick="toggleBlocksMode()" title="تفعيل/إيقاف وضع البلوكات">
+                            <i class="fas fa-cubes"></i> وضع البلوكات
+                        </button>
+                        <button class="btn btn-secondary" onclick="insertNewline()" title="إضافة سطر جديد \\n في مكان الكتابة (أو Shift+Enter)">
+                            <i class="fas fa-level-down-alt"></i> + سطر
+                        </button>
+                        <button class="btn btn-outline-danger btn-sm" onclick="cleanupDuplicateBlocksEditors()" title="تنظيف العناصر المكررة (للطوارئ فقط)" style="font-size: 0.8em; padding: 0.25rem 0.5rem;">
+                            <i class="fas fa-broom"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <span id="statusText">لم يتم تحميل ملف</span>
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <span>تم صنعه من عناد عسكر</span>
+        </footer>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-cog"></i> إعدادات خدمات الترجمة</h3>
+                <button class="close-modal" onclick="closeSettings()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="settings-group" style="background: rgba(40, 167, 69, 0.1); border-color: rgba(40, 167, 69, 0.3);">
+                    <h4><i class="fas fa-gift"></i> MyMemory (مجاني)</h4>
+                    <p style="color: #28a745; margin: 0.5rem 0;">
+                        ✅ <strong>يعمل بدون مفتاح API!</strong><br>
+                        🌐 متاح على GitHub Pages بدون مشاكل<br>
+                        🎯 مناسب للاستخدام اليومي
+                    </p>
+                    <small style="color: #6c757d;">لا تحتاج لإدخال أي مفتاح - فقط اختر "MyMemory" واضغط ترجم</small>
+                </div>
+                
+                <div class="settings-group">
+                    <h4><i class="fas fa-robot"></i> Claude (Anthropic)</h4>
+                    <input type="password" id="claudeApiKey" placeholder="أدخل مفتاح Claude API" class="api-input">
+                    <small>احصل على المفتاح من: <a href="https://console.anthropic.com/" target="_blank">console.anthropic.com</a></small>
+                    <div style="background: #fff3cd; padding: 0.5rem; border-radius: 4px; margin-top: 0.5rem;">
+                        <small style="color: #856404;">
+                            💡 <strong>حل CORS:</strong> نزّل <a href="https://chrome.google.com/webstore/search/cors%20unblock" target="_blank">CORS extension</a> للمتصفح
+                        </small>
+                    </div>
+                </div>
+                
+                <div class="settings-group">
+                    <h4><i class="fas fa-brain"></i> ChatGPT (OpenAI)</h4>
+                    <input type="password" id="openaiApiKey" placeholder="أدخل مفتاح OpenAI API" class="api-input">
+                    <small>احصل على المفتاح من: <a href="https://platform.openai.com/api-keys" target="_blank">platform.openai.com</a></small>
+                </div>
+                
+                <div class="settings-group">
+                    <h4><i class="fab fa-google"></i> Gemini (Google)</h4>
+                    <input type="password" id="geminiApiKey" placeholder="أدخل مفتاح Gemini API" class="api-input">
+                    <small>احصل على المفتاح من: <a href="https://makersuite.google.com/app/apikey" target="_blank">makersuite.google.com</a></small>
+                </div>
+                
+                <div class="settings-group">
+                    <h4><i class="fas fa-language"></i> DeepL</h4>
+                    <input type="password" id="deeplApiKey" placeholder="أدخل مفتاح DeepL API" class="api-input">
+                    <small>احصل على المفتاح من: <a href="https://www.deepl.com/pro-api" target="_blank">deepl.com/pro-api</a></small>
+                </div>
+                
+                <div class="settings-group">
+                    <h4><i class="fas fa-globe"></i> Google Translate</h4>
+                    <input type="password" id="googleApiKey" placeholder="أدخل مفتاح Google Cloud API" class="api-input">
+                    <small>احصل على المفتاح من: <a href="https://console.cloud.google.com/" target="_blank">console.cloud.google.com</a></small>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" onclick="saveApiSettings()">
+                    <i class="fas fa-save"></i> حفظ الإعدادات
+                </button>
+                <button class="btn btn-secondary" onclick="closeSettings()">
+                    <i class="fas fa-times"></i> إلغاء
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- File Input (Hidden) -->
+    <input type="file" id="fileInput" accept=".yml,.yaml" style="display: none;" onchange="handleFileSelect(event)">
+
+    <!-- Notifications -->
+    <div id="notification" class="notification"></div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-spinner">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>جاري التحميل...</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 

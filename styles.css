@@ -1,0 +1,1191 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Cairo', sans-serif;
+    background: linear-gradient(135deg, #1a2a2a 0%, #2a3a3a 100%);
+    color: #e0f0f0;
+    direction: rtl;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+/* Header */
+.header {
+    background: linear-gradient(135deg, #2a4a4a 0%, #3a5a5a 100%);
+    padding: 0.6rem 0;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+    flex-shrink: 0;
+    border-bottom: 1px solid #4a6a6a;
+}
+
+/* Header content - إصلاح صحيح للمحاذاة */
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 100%;
+    margin: 0 auto;
+    gap: 2rem;
+    direction: rtl; /* RTL للتوزيع الصحيح */
+    width: 100%;
+    padding: 0 1rem;
+}
+
+.header h1 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #e0f0f0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 1;
+    justify-content: flex-start; /* العنوان على اليمين */
+    direction: rtl;
+}
+
+.header h1 i {
+    font-size: 1.4rem;
+    color: #6c63ff;
+}
+
+.header-controls {
+    display: flex;
+    gap: 0.5rem;
+    flex-shrink: 0;
+    direction: rtl;
+    justify-content: flex-end; /* الأزرار على اليسار */
+}
+
+/* Toolbar */
+.toolbar {
+    background: linear-gradient(135deg, #2a3a3a 0%, #3a4a4a 100%);
+    padding: 0.4rem 0.8rem;
+    border-bottom: 1px solid #4a6a6a;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    max-width: 100%;
+    margin: 0;
+    direction: rtl;
+    flex-shrink: 0;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.15);
+}
+
+.toolbar-left {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.control-group {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    flex-shrink: 0;
+}
+
+.control-group label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #b0c0c0;
+    white-space: nowrap;
+}
+
+.control-group select {
+    padding: 0.3rem 0.5rem;
+    background: #1a2a2a;
+    border: 1px solid #3a4a4a;
+    border-radius: 4px;
+    color: #e0f0f0;
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.8rem;
+    direction: rtl;
+    min-width: 80px;
+}
+
+.control-group select:focus {
+    outline: none;
+    border-color: #6c63ff;
+    box-shadow: 0 0 0 2px rgba(108, 99, 255, 0.3);
+}
+
+/* Translation Controls */
+.translation-controls {
+    background: rgba(108, 99, 255, 0.1);
+    padding: 0.4rem 0.6rem;
+    border-radius: 6px;
+    border: 1px solid rgba(108, 99, 255, 0.3);
+    gap: 0.6rem;
+}
+
+.translation-controls select {
+    min-width: 120px;
+}
+
+.translate-btn {
+    font-size: 0.8rem !important;
+    padding: 0.3rem 0.6rem !important;
+    min-width: auto !important;
+}
+
+/* تحسينات للإعدادات الجديدة */
+.control-group select {
+    transition: all 0.3s ease;
+}
+
+/* تم إزالة إعدادات textboxHeight - الآن يتم التحكم بالسحب اليدوي */
+
+/* تحسين لمحدد حجم النص */
+#fontSize {
+    background: linear-gradient(135deg, #2a3a3a 0%, #1a2a2a 100%);
+}
+
+#fontSize option {
+    background: #2a3a4a;
+    color: #e0f0f0;
+}
+
+/* إضافة icons للمحددات */
+.control-group label[for="fontSize"]::before {
+    content: "📝 ";
+    font-size: 0.8em;
+    margin-left: 0.3rem;
+}
+
+/* تم إزالة icon textboxHeight */
+
+.control-group label[for="textAlign"]::before {
+    content: "⚡ ";
+    font-size: 0.8em;
+    margin-left: 0.3rem;
+}
+
+/* Main content - مع toolbar */
+.main-content {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    width: 100%;
+    gap: 0;
+    padding: 0;
+    direction: rtl;
+    height: calc(100vh - 120px); /* حساب header + toolbar + footer */
+}
+
+/* Panels */
+.left-panel {
+    flex: 0 0 320px;
+    background: #1a2a2a;
+    border-right: 1px solid #3a4a4a;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: 0;
+}
+
+.right-panel {
+    flex: 1;
+    background: #1a2a2a;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: 0;
+}
+
+.panel-header {
+    background: linear-gradient(135deg, #2a3a3a 0%, #3a4a4a 100%);
+    padding: 0.6rem 0.8rem;
+    border-bottom: 1px solid #3a4a4a;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
+}
+
+.panel-header h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #e0f0f0;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.panel-header h3 i {
+    font-size: 0.9rem;
+    color: #6c63ff;
+}
+
+.navigation {
+    display: flex;
+    gap: 0.4rem;
+}
+
+.stats {
+    background: rgba(108, 99, 255, 0.2);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    color: #d0e0e0;
+}
+
+/* Search Container - في panel مفاتيح الترجمة */
+.search-container {
+    padding: 0.6rem;
+    background: #2a3a3a;
+    border-bottom: 1px solid #3a4a4a;
+    flex-shrink: 0;
+}
+
+.search-container input {
+    width: 100%;
+    padding: 0.5rem 0.8rem;
+    background: #1a2a2a;
+    border: 1px solid #3a4a4a;
+    border-radius: 6px;
+    color: #e0f0f0;
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.85rem;
+    direction: rtl;
+    text-align: right;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.search-container input:focus {
+    border-color: #6c63ff;
+    box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.3);
+    background: #1a2a2a;
+}
+
+.search-container input:not(:placeholder-shown) {
+    background: #1e2e2e;
+    border-color: #5a7a7a;
+    font-weight: 500;
+}
+
+/* Translation List */
+.translation-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0.4rem;
+    background: #1a2a2a;
+}
+
+.translation-item {
+    background: #2a3a3a;
+    border: 1px solid #3a4a4a;
+    border-radius: 6px;
+    padding: 0.5rem;
+    margin-bottom: 0.3rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    font-size: 0.8rem;
+    line-height: 1.3;
+}
+
+.translation-item:hover {
+    background: #3a4a4a;
+    border-color: #4a5a5a;
+    transform: translateX(-2px);
+}
+
+.translation-item.selected {
+    background: linear-gradient(135deg, #4a5a7a 0%, #5a6a8a 100%);
+    border-color: #6c63ff;
+    box-shadow: 0 0 0 2px rgba(108, 99, 255, 0.3);
+}
+
+.translation-item.modified::before {
+    content: '●';
+    position: absolute;
+    top: 0.3rem;
+    left: 0.4rem;
+    color: #ffd700;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.translation-key {
+    font-weight: 600;
+    color: #9ab7ff;
+    font-size: 0.75rem;
+    margin-bottom: 0.2rem;
+    line-height: 1.2;
+    word-break: break-word;
+}
+
+.translation-value {
+    color: #c0d0d0;
+    font-size: 0.7rem;
+    line-height: 1.2;
+    margin-bottom: 0.1rem;
+}
+
+.translation-preview {
+    color: #8a9a9a;
+    font-size: 0.65rem;
+    line-height: 1.1;
+    max-height: 2.2em;
+    overflow: hidden;
+    word-break: break-word;
+}
+
+/* Editor Content */
+.editor-content {
+    padding: 0.8rem;
+    overflow-y: auto;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    height: auto;
+}
+
+.field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    flex-shrink: 0;
+}
+
+.field-group label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #b0c0c0;
+}
+
+/* Text Display Container - للنصوص مع أيقونات النسخ */
+.text-display-container {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+}
+
+.text-display {
+    background: #2a3a3a;
+    border: 1px solid #3a4a4a;
+    border-radius: 6px;
+    padding: 0.5rem 2.5rem 0.5rem 0.8rem; /* مساحة للأيقونة */
+    color: #e0f0f0;
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    text-align: right;
+    direction: rtl;
+    min-height: 2.5rem;
+    resize: none;
+    overflow-y: auto;
+    word-wrap: break-word;
+    flex: 1;
+}
+
+.text-display.original-text {
+    background: #1e3a1e;
+    border-color: #2e4a2e;
+    color: #d4f4da;
+    direction: ltr;
+    text-align: left;
+    font-family: 'Courier New', monospace;
+    padding: 0.5rem 0.8rem 0.5rem 2.5rem; /* مساحة للأيقونة على اليسار */
+}
+
+/* أيقونة نسخ خاصة للنص المرجعي الإنجليزي */
+.text-display.original-text + .copy-icon {
+    left: 0.5rem; /* على اليسار للنص الإنجليزي */
+    background: rgba(40, 167, 69, 0.8);
+}
+
+.text-display.original-text + .copy-icon:hover {
+    background: rgba(40, 167, 69, 1);
+    box-shadow: 0 2px 8px rgba(40, 167, 69, 0.4);
+}
+
+/* النص المرجعي في وضع البلوكات */
+.text-display.original-text.blocks-reference-mode {
+    white-space: normal;
+    line-height: 1.6;
+}
+
+/* تحسينات للصناديق مع resize يدوي */
+.text-display, .translation-input, .blocks-editor {
+    resize: vertical; /* السماح بتغيير الحجم عمودياً بالسحب */
+    overflow-y: auto;
+    overflow-x: hidden;
+    min-height: 6rem; /* ارتفاع أدنى */
+    max-height: 30rem; /* ارتفاع أقصى */
+}
+
+/* تحسين scrollbar للصناديق الكبيرة */
+.text-display::-webkit-scrollbar, 
+.translation-input::-webkit-scrollbar,
+.blocks-editor::-webkit-scrollbar {
+    width: 8px;
+}
+
+.text-display::-webkit-scrollbar-track,
+.translation-input::-webkit-scrollbar-track,
+.blocks-editor::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+.text-display::-webkit-scrollbar-thumb,
+.translation-input::-webkit-scrollbar-thumb,
+.blocks-editor::-webkit-scrollbar-thumb {
+    background: rgba(108, 99, 255, 0.6);
+    border-radius: 4px;
+}
+
+.text-display::-webkit-scrollbar-thumb:hover,
+.translation-input::-webkit-scrollbar-thumb:hover,
+.blocks-editor::-webkit-scrollbar-thumb:hover {
+    background: rgba(108, 99, 255, 0.8);
+}
+
+/* تم إزالة إعدادات الأحجام المختلفة - الآن يتم التحكم بالسحب اليدوي */
+
+.text-display.original-text.blocks-reference-mode .command-block,
+.text-display.original-text.blocks-reference-mode .newline-block {
+    font-size: 0.8em;
+    margin: 1px;
+    padding: 1px 3px;
+}
+
+.text-display.original-text.blocks-reference-mode .command-block.missing,
+.text-display.original-text.blocks-reference-mode .newline-block.missing {
+    animation: referenceBlockPulse 3s infinite;
+}
+
+@keyframes referenceBlockPulse {
+    0%, 100% { 
+        box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.3);
+        transform: scale(1);
+    }
+    50% { 
+        box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+        transform: scale(1.05);
+    }
+}
+
+.translation-input {
+    background: #2a3a3a;
+    border: 1px solid #3a4a4a;
+    border-radius: 6px;
+    padding: 0.5rem 2.5rem 0.5rem 0.8rem; /* مساحة للأيقونة */
+    color: #e0f0f0;
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    text-align: right;
+    direction: rtl;
+    min-height: 4rem;
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.3s ease;
+    flex: 1;
+}
+
+.translation-input:focus {
+    border-color: #6c63ff;
+    box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.3);
+    background: #2e3e3e;
+}
+
+/* Copy Icons */
+.copy-icon {
+    position: absolute;
+    top: 50%;
+    left: 0.5rem;
+    transform: translateY(-50%);
+    background: rgba(108, 99, 255, 0.8);
+    border: none;
+    border-radius: 50%;
+    width: 1.8rem;
+    height: 1.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: white;
+    font-size: 0.7rem;
+    z-index: 10;
+    opacity: 0.7;
+}
+
+.copy-icon:hover {
+    background: rgba(108, 99, 255, 1);
+    opacity: 1;
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 2px 8px rgba(108, 99, 255, 0.4);
+}
+
+.copy-icon:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+/* Action Buttons */
+.action-buttons {
+    display: flex;
+    gap: 0.4rem;
+    margin-top: 0.4rem;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+/* Buttons */
+.btn {
+    padding: 0.4rem 0.8rem;
+    border: none;
+    border-radius: 6px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    text-decoration: none;
+    min-width: 90px;
+    justify-content: center;
+    white-space: nowrap;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #6c63ff 0%, #5a52d5 100%);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #7b72ff 0%, #6961e5 100%);
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, #4a5a5a 0%, #5a6a6a 100%);
+    color: #e0f0f0;
+}
+
+.btn-secondary:hover {
+    background: linear-gradient(135deg, #5a6a6a 0%, #6a7a7a 100%);
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #28a745 0%, #20963d 100%);
+    color: white;
+}
+
+.btn-success:hover {
+    background: linear-gradient(135deg, #34ce57 0%, #28a745 100%);
+}
+
+.btn-warning {
+    background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%);
+    color: #212529;
+}
+
+.btn-warning:hover {
+    background: linear-gradient(135deg, #ffcd39 0%, #ffc107 100%);
+}
+
+.btn-info {
+    background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+    color: white;
+}
+
+.btn-info:hover {
+    background: linear-gradient(135deg, #20c0d7 0%, #17a2b8 100%);
+}
+
+/* Save Button States */
+.save-btn.saved {
+    background: linear-gradient(135deg, #28a745 0%, #20963d 100%);
+    color: white;
+}
+
+.save-btn.unsaved {
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    color: white;
+}
+
+/* Status Bar */
+.status-bar {
+    background: #1a1a1a;
+    padding: 0.3rem 0.8rem;
+    border-top: 1px solid #3a4a4a;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+    color: #a0b0b0;
+    flex-shrink: 0;
+    height: 1.8rem;
+}
+
+.progress-container {
+    width: 100px;
+    height: 4px;
+    background: #3a4a4a;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #6c63ff 0%, #9c88ff 100%);
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+/* Footer */
+.footer {
+    background: #1a1a1a;
+    padding: 0.4rem;
+    text-align: center;
+    font-size: 0.75rem;
+    color: #8a9a9a;
+    border-top: 1px solid #3a4a4a;
+    flex-shrink: 0;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+}
+
+.modal.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: linear-gradient(135deg, #2a3a3a 0%, #3a4a4a 100%);
+    border-radius: 12px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    border: 1px solid #4a5a5a;
+}
+
+.modal-header {
+    background: linear-gradient(135deg, #3a4a4a 0%, #4a5a5a 100%);
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #5a6a6a;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h3 {
+    color: #e0f0f0;
+    font-size: 1.2rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.close-modal {
+    background: none;
+    border: none;
+    color: #a0b0b0;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0.2rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.close-modal:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.modal-body {
+    padding: 1.5rem;
+    overflow-y: auto;
+    max-height: 60vh;
+}
+
+.modal-footer {
+    background: linear-gradient(135deg, #2a3a3a 0%, #3a4a4a 100%);
+    padding: 1rem 1.5rem;
+    border-top: 1px solid #4a5a5a;
+    display: flex;
+    gap: 0.8rem;
+    justify-content: flex-end;
+}
+
+/* Settings Groups */
+.settings-group {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.settings-group h4 {
+    color: #e0f0f0;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.settings-group h4 i {
+    color: #6c63ff;
+}
+
+.api-input {
+    width: 100%;
+    padding: 0.6rem 0.8rem;
+    background: #1a2a2a;
+    border: 1px solid #3a4a4a;
+    border-radius: 6px;
+    color: #e0f0f0;
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.9rem;
+    direction: ltr;
+    text-align: left;
+    outline: none;
+    transition: border-color 0.3s ease;
+    margin-bottom: 0.5rem;
+}
+
+.api-input:focus {
+    border-color: #6c63ff;
+    box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.3);
+    background: #1e2e2e;
+}
+
+.settings-group small {
+    color: #a0b0b0;
+    font-size: 0.8rem;
+    line-height: 1.4;
+}
+
+.settings-group small a {
+    color: #6c63ff;
+    text-decoration: none;
+}
+
+.settings-group small a:hover {
+    text-decoration: underline;
+}
+
+/* Notification */
+.notification {
+    position: fixed;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #2a4a4a 0%, #3a5a5a 100%);
+    color: #e0f0f0;
+    padding: 0.8rem 1.2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    max-width: 400px;
+    text-align: center;
+    border: 1px solid #4a6a6a;
+    cursor: pointer;
+}
+
+.notification.show {
+    opacity: 1;
+}
+
+.notification.success {
+    background: linear-gradient(135deg, #28a745 0%, #20963d 100%);
+    border-color: #34ce57;
+}
+
+.notification.error {
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    border-color: #e74c3c;
+}
+
+.notification.warning {
+    background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%);
+    border-color: #ffcd39;
+    color: #212529;
+}
+
+.notification.info {
+    background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+    border-color: #20c0d7;
+}
+
+/* Loading Overlay */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.loading-overlay.show {
+    display: flex;
+}
+
+.loading-spinner {
+    text-align: center;
+    color: #e0f0f0;
+}
+
+.loading-spinner i {
+    font-size: 3rem;
+    color: #6c63ff;
+    margin-bottom: 1rem;
+}
+
+.loading-spinner p {
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+/* Command Blocks Styling */
+.command-block {
+    background: rgba(108, 99, 255, 0.15);
+    border: 1px solid rgba(108, 99, 255, 0.3);
+    border-radius: 4px;
+    padding: 2px 4px;
+    margin: 0 2px;
+    display: inline-block;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+    color: #a0b0ff;
+    cursor: default;
+    transition: all 0.3s ease;
+    word-break: break-all;
+    white-space: normal;
+    user-select: text;
+}
+
+/* Different types of blocks */
+.command-block[data-type="variable"] {
+    background: rgba(255, 193, 7, 0.15);
+    border-color: rgba(255, 193, 7, 0.3);
+    color: #ffc107;
+}
+
+.command-block[data-type="special"] {
+    background: rgba(220, 53, 69, 0.15);
+    border-color: rgba(220, 53, 69, 0.3);
+    color: #dc3545;
+}
+
+.command-block[data-type="icon"] {
+    background: rgba(111, 66, 193, 0.15);
+    border-color: rgba(111, 66, 193, 0.3);
+    color: #6f42c1;
+    font-weight: bold;
+}
+
+.command-block:hover {
+    background: rgba(108, 99, 255, 0.25);
+    border-color: rgba(108, 99, 255, 0.5);
+    transform: translateY(-1px);
+}
+
+/* تم إزالة ستايلات السحب والإفلات */
+
+.newline-block {
+    background: rgba(255, 159, 64, 0.15);
+    border: 1px solid rgba(255, 159, 64, 0.3);
+    border-radius: 4px;
+    padding: 2px 6px;
+    margin: 0 2px;
+    display: inline-block;
+    font-family: 'Courier New', monospace;
+    font-size: 0.8em;
+    color: #ffb366;
+    cursor: default;
+    transition: all 0.3s ease;
+    user-select: text;
+}
+
+.newline-block:hover {
+    background: rgba(255, 159, 64, 0.25);
+    border-color: rgba(255, 159, 64, 0.5);
+    transform: translateY(-1px);
+}
+
+.command-block[data-type="variable"]:hover {
+    background: rgba(255, 193, 7, 0.25);
+    border-color: rgba(255, 193, 7, 0.5);
+    transform: translateY(-1px);
+}
+
+.command-block[data-type="special"]:hover {
+    background: rgba(220, 53, 69, 0.25);
+    border-color: rgba(220, 53, 69, 0.5);
+    transform: translateY(-1px);
+}
+
+.command-block[data-type="icon"]:hover {
+    background: rgba(111, 66, 193, 0.25);
+    border-color: rgba(111, 66, 193, 0.5);
+    transform: translateY(-1px);
+}
+
+/* البلوكات المفقودة في الترجمة */
+.command-block.missing,
+.newline-block.missing {
+    background: rgba(220, 53, 69, 0.2) !important;
+    border-color: rgba(220, 53, 69, 0.6) !important;
+    color: #dc3545 !important;
+    animation: missingPulse 2s infinite;
+    position: relative;
+}
+
+.command-block.missing:before,
+.newline-block.missing:before {
+    content: "🚫";
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    font-size: 0.6rem;
+    background: #dc3545;
+    color: white;
+    border-radius: 50%;
+    width: 12px;
+    height: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    border: 1px solid white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+.command-block.missing:hover,
+.newline-block.missing:hover {
+    background: rgba(220, 53, 69, 0.3) !important;
+    border-color: rgba(220, 53, 69, 0.8) !important;
+    transform: translateY(-1px) scale(1.05);
+}
+
+@keyframes missingPulse {
+    0%, 100% { 
+        box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.4);
+    }
+    50% { 
+        box-shadow: 0 0 0 4px rgba(220, 53, 69, 0.1);
+    }
+}
+
+.newline-block:after {
+    content: "↵";
+    font-weight: bold;
+}
+
+/* Blocks Editor */
+.blocks-editor {
+    background: #2a3a3a;
+    border: 1px solid #3a4a4a;
+    border-radius: 6px;
+    padding: 0.5rem 2.5rem 0.5rem 0.8rem;
+    color: #e0f0f0;
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    text-align: right;
+    direction: rtl;
+    min-height: 4rem;
+    overflow-y: auto;
+    outline: none;
+    transition: border-color 0.3s ease;
+    flex: 1;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.blocks-editor:focus {
+    border-color: #6c63ff;
+    box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.3);
+    background: #2e3e3e;
+}
+
+/* تم إزالة ستايلات Drop Highlights */
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #2a3a3a;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #5a6a6a;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #6a7a7a;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .left-panel {
+        flex: 0 0 280px;
+    }
+    
+    .toolbar-left {
+        gap: 0.8rem;
+    }
+    
+    .control-group {
+        gap: 0.3rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        height: 100vh;
+    }
+    
+    .main-content {
+        flex-direction: column;
+        height: calc(100vh - 140px);
+    }
+    
+    .left-panel {
+        flex: 0 0 200px;
+        order: 2;
+    }
+    
+    .right-panel {
+        flex: 1;
+        order: 1;
+    }
+    
+    .header-content {
+        flex-direction: column;
+        gap: 0.8rem;
+        padding: 0 0.5rem;
+    }
+    
+    .toolbar {
+        padding: 0.3rem 0.5rem;
+    }
+    
+    .toolbar-left {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: stretch;
+    }
+    
+    .translation-controls {
+        flex-direction: column;
+        gap: 0.4rem;
+    }
+    
+    .translation-controls .btn {
+        align-self: flex-start;
+    }
+    
+    .modal-content {
+        width: 95%;
+        margin: 1rem;
+    }
+    
+    .modal-body {
+        padding: 1rem;
+    }
+    
+    .settings-group {
+        padding: 0.8rem;
+    }
+} 
+
+/* تنسيق مفاتيح الترجمة التي تحتوي على بلوكات مفقودة */
+.translation-item.has-missing-blocks {
+    background: linear-gradient(135deg, #3d1a1a 0%, #2d1414 100%) !important;
+    border-color: #ff6b6b !important;
+    box-shadow: 0 0 8px rgba(255, 107, 107, 0.3) !important;
+}
+
+.translation-item.has-missing-blocks::after {
+    content: "⚠️";
+    position: absolute;
+    top: 0.25rem;
+    left: 0.25rem;
+    font-size: 0.8em;
+    color: #ff6b6b;
+    z-index: 10;
+}
+
+.translation-item.has-missing-blocks:hover {
+    background: linear-gradient(135deg, #4d2424 0%, #3d1a1a 100%) !important;
+    border-color: #ff8080 !important;
+    box-shadow: 0 0 12px rgba(255, 107, 107, 0.4) !important;
+}
+
+/* تنسيق tooltip محسن للمفاتيح المفقودة */
+.translation-item.has-missing-blocks[title] {
+    position: relative;
+}
+
+/* تحسين شكل العنصر النشط مع البلوكات المفقودة */
+.translation-item.has-missing-blocks.active {
+    background: linear-gradient(135deg, #5d3030 0%, #4d2424 100%) !important;
+    border-color: #ff9999 !important;
+    box-shadow: 0 0 15px rgba(255, 107, 107, 0.5) !important;
+} 
